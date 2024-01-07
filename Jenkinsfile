@@ -11,8 +11,8 @@ pipeline {
 
                     // Use withCredentials for both Docker and SSH
                     withCredentials([
-                        usernamePassword(credentialsId: dockerCredentialsId, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD'),
-                        usernamePassword(credentialsId: sshCredentialsId, usernameVariable: 'VM_USERNAME', passwordVariable: 'VM_PASSWORD')
+                        usernamePassword(credentialsId: docker-hub-credentials, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD'),
+                        usernamePassword(credentialsId: vm-credentials, usernameVariable: 'VM_USERNAME', passwordVariable: 'VM_PASSWORD')
                     ]) {
                         sh """
                             sshpass -p '$VM_PASSWORD' ssh -o StrictHostKeyChecking=no $VM_USERNAME@20.127.158.238 bash -s << 'ENDSSH'
