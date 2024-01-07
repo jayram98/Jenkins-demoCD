@@ -10,6 +10,7 @@ pipeline {
                             sshpass -p '$VM_PASSWORD' ssh -v -o StrictHostKeyChecking=no $VM_USERNAME@20.127.158.238 << 'ENDSSH'
                                 echo "hello"
                                 whoami
+                                docker login -u your_docker_username -p your_docker_password
                                 docker stop jay899/hello-world || true
                                 docker rm jay899/hello-world || true
                                 docker pull your_jay899/hello-world:latest
