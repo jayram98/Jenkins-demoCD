@@ -18,7 +18,7 @@ pipeline {
                                 docker rm your_python_project_container || true
                                 docker pull jay899/hello-world:latest
                                 docker run -d -p 8080:80 --name your_python_project_container jay899/hello-world:latest
-                            ENDSSH
+                            
                         """
                     }
                 }
