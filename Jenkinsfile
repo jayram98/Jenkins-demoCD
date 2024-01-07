@@ -5,12 +5,13 @@ pipeline {
         stage('Deploy to Linux Machine') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'vm-credentials', usernameVariable: 'VM_USERNAME', passwordVariable: 'VM_PASSWORD')]) {
+                    withCredentials([usernamePassword(credentialsId: 'vm-credentials', usernameVariable: 'VM_USERNAME', passwordVariable: 'VM_PASSWORD', credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
                         sh """
                             sshpass -p '$VM_PASSWORD' ssh -v -o StrictHostKeyChecking=no $VM_USERNAME@20.127.158.238 << 'ENDSSH'
                                 echo "hello"
                                 whoami
-                                docker login -u your_docker_username -p your_docker_password
+            
+                                sh 'docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD'
                                 docker stop jay899/hello-world || true
                                 docker rm jay899/hello-world || true
                                 docker pull your_jay899/hello-world:latest
