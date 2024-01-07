@@ -7,7 +7,7 @@ pipeline {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'vm-credentials', usernameVariable: 'VM_USERNAME', passwordVariable: 'VM_PASSWORD')]) {
                         sh """
-                            sshpass -p '$VM_PASSWORD' ssh $VM_USERNAME@20.127.158.238 << 'ENDSSH'
+                            sshpass -p '$VM_PASSWORD' ssh -v -o StrictHostKeyChecking=no $VM_USERNAME@20.127.158.238 << 'ENDSSH'
                                 echo "hello"
                                 docker stop your_python_project_container || true
                                 docker rm your_python_project_container || true
